@@ -14,7 +14,9 @@ from astropy.modeling.models import GeneralSersic2D, Sersic2D
 
 from scopesim_templates import (star, stars, galaxy, binary,
                                 planetary_system, exoplanet,
-                                circumstellar_disk)
+                                circumstellar_disk, gaussian_source,
+                                cluster, galaxy_with_supernova, galaxy_group,
+                                einstein_ring, protoplanetary_disk)
 from scopesim_templates.extragalactic.exgal_models import GalaxyBase
 from scopesim_templates.misc import point_source
 
@@ -77,6 +79,45 @@ class TestExtendedSources:
         """Disk(radius=1 arcsec, width=0.5 arcsec)"""
         src = circumstellar_disk("blackbody:100", 1, 0.5, pixel_scale=0.1)
         assert _table(src).data.sum() == pytest.approx(1)
+
+    def test_elliptical_ring(self):
+        """Ring(r_in, width, ellip=0.5, theta) (ELVIS)"""
+        incl = np.rad2deg(np.arccos(1 - 0.5))
+        src = circumstellar_disk("blackbody:100", 1, 0.2, pixel_scale=0.05,
+                                 inclination=incl, angle=30)
+        assert _table(src).data.sum() == pytest.approx(1)
+
+    def test_uniform_disk(self):
+        """Disk(R_0=0.5 arcsec) (ELVIS)"""
+        img = _table(circumstellar_disk("blackbody:100", 0, 0.5,
+                                        pixel_scale=0.1)).data
+        centre = img.shape[0] // 2
+        assert img[centre, centre] == pytest.approx(img.max())
+
+    def test_gaussian(self):
+        """Gaussian(x_stddev, y_stddev, theta) (ELVIS)"""
+        src = gaussian_source("blackbody:5000", 0.1, pixel_scale=0.02,
+                              sigma_minor=0.05, angle=45)
+        assert _table(src).data.sum() == pytest.approx(1)
+
+    def test_zero_age_cluster(self):
+        """ZeroAgeCluster (ELVIS)"""
+        assert len(_table(cluster(mass=100, seed=1))) > 0
+
+
+@pytest.mark.webtest
+class TestElvisExampleScenes:
+    def test_galaxy_with_supernova(self):
+        assert len(galaxy_with_supernova().fields) == 2
+
+    def test_galaxy_group(self):
+        assert len(galaxy_group().fields) == 3
+
+    def test_einstein_ring(self):
+        assert len(einstein_ring().fields) == 4
+
+    def test_hl_tau_disk(self):
+        assert len(protoplanetary_disk().fields) == 2
 
 
 class TestOffline:

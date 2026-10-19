@@ -9,3 +9,4 @@ from .gc_background import galactic_centre_background
 from .s301_star import s301, s301_orbit
 from .omega_centauri import omega_cen, evolve_omega_cen
 from .multiples import binary, planetary_system, exoplanet
+from .disks import protoplanetary_disk

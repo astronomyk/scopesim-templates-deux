@@ -91,6 +91,8 @@ from_scopesim_targets
    scopesim_templates.calibration.calibration
    scopesim_templates.misc.misc
    scopesim_templates.misc.shapes
+   scopesim_templates.misc.nebula
+   scopesim_templates.utils.photometry
    scopesim_templates.utils.positions
    scopesim_templates.utils.spectra
 ```

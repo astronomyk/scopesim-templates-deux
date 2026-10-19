@@ -15,6 +15,7 @@ from astropy.table import Table, vstack
 
 from ..rc import Source
 from ..utils.general_utils import RA0, DEC0, add_function_call_str
+from ..utils.photometry import as_amplitude, is_magnitude, scale_amplitude
 from ..utils.positions import offset_to_xy
 from ..utils.spectra import resolve_sed
 from .stellar import stars
@@ -27,26 +28,6 @@ __all__ = ["binary",
 
 _PLANET_KEYS = {"separation", "position_angle", "contrast", "sed", "name",
                 "distance"}
-
-
-def _as_amplitude(amplitude):
-    """Bare numbers are Vega magnitudes, as in ``stars``."""
-    if isinstance(amplitude, u.Quantity):
-        return amplitude
-    return amplitude * u.mag
-
-
-def _is_magnitude(unit):
-    return unit in (u.mag, u.ABmag, u.STmag)
-
-
-def _scale_amplitude(amplitude, contrast):
-    """Return the amplitude of something ``contrast`` times as bright."""
-    if contrast <= 0:
-        raise ValueError(f"contrast must be positive, got {contrast}.")
-    if _is_magnitude(amplitude.unit):
-        return (amplitude.value - 2.5 * np.log10(contrast)) * amplitude.unit
-    return amplitude * contrast
 
 
 @add_function_call_str
@@ -117,11 +98,11 @@ def binary(filter_name, amplitude, spec_types=("A0V", "A0V"), separation=1,
     if len(spec_types) != 2:
         raise ValueError(f"Need two spectral types, got {spec_types!r}.")
 
-    amplitude = _as_amplitude(amplitude)
+    amplitude = as_amplitude(amplitude)
     if amplitude_secondary is None:
-        amplitude_secondary = _scale_amplitude(
+        amplitude_secondary = scale_amplitude(
             amplitude, 1 if contrast is None else contrast)
-    amplitude_secondary = _as_amplitude(amplitude_secondary)
+    amplitude_secondary = as_amplitude(amplitude_secondary)
     amplitudes = u.Quantity([amplitude, amplitude_secondary.to(amplitude.unit)])
 
     dx, dy = offset_to_xy(separation, position_angle, distance)
@@ -232,7 +213,7 @@ def planetary_system(filter_name, amplitude, spec_type="G2V", planets=(),
         ...              {"separation": 0.9, "position_angle": 120,
         ...               "contrast": 1e-6, "sed": "blackbody:900"}])
     """
-    amplitude = _as_amplitude(amplitude)
+    amplitude = as_amplitude(amplitude)
     if companion is not None:
         companion = dict(companion)
         spec_types = (spec_type, companion.pop("spec_type", spec_type))
@@ -245,7 +226,7 @@ def planetary_system(filter_name, amplitude, spec_type="G2V", planets=(),
 
     host_table = host.fields[0].field
     host_spectra = list(host.spectra.values())
-    zero = (0 if _is_magnitude(amplitude.unit) else 1) * amplitude.unit
+    zero = (0 if is_magnitude(amplitude.unit) else 1) * amplitude.unit
     rows, planet_spectra = _planet_rows(planets, host_table[0], zero,
                                         filter_name, distance)
 

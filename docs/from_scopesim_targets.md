@@ -16,10 +16,33 @@ scopesim-targets.
 | `PlanetarySystem(primary=Star or Binary, components=[Exoplanet, ...])` | `planetary_system(band, mag, spec_type, planets=[{...}, ...], companion={...})` |
 | `Sersic(params={"r_eff", "n", "ellip", "theta", "c"})` | `galaxy(sed, r_eff=..., n=..., ellip=..., theta=..., c=...)` |
 | `Disk(radius=r, width=w)` | `circumstellar_disk(sed, r_in=r, width=w, pixel_scale=...)`, which can also be inclined |
+| `Ring(r_in, width, ellip, theta)` | `circumstellar_disk(sed, r_in, width, inclination=arccos(1 - ellip), angle=theta, ...)` |
+| `Disk(R_0)` (uniform disk, `Disk2D`) | `circumstellar_disk(sed, r_in=0, width=R_0, ...)` |
+| `Gaussian(x_stddev, y_stddev, theta)` | `gaussian_source(sed, sigma, sigma_minor=..., angle=theta, ...)` |
+| `ZeroAgeCluster(...)` | `cluster(mass, distance, core_radius)` |
 | spectrum `"spex:kc96/s0"`, `"file:spec.fits"`, `"blackbody:5800 K"` | the same strings work for every `sed` argument (see `utils.spectra.resolve_sed`) |
 | separation in AU plus the parent's distance | any separation or size given as a length plus `distance=` (see `utils.positions`) |
 
-Differences to keep in mind:
+The `Ring`, `Disk(R_0)`, `Gaussian` and `ZeroAgeCluster` rows come from the
+copy of scopesim-targets that the ELVIS web ETC ships.
+
+## ELVIS example scenes
+
+The example scenes of the ELVIS web ETC each have a one-call equivalent:
+
+| ELVIS example | ScopeSim Templates |
+|---|---|
+| Galaxy + supernova | `galaxy_with_supernova()`, with a real `sne/...` template instead of a B0V star |
+| Binary star | `binary("K", 14.05, ("G2V", "M2V"), separation=0.04, position_angle=60, contrast=0.05)` |
+| Crowded star field | `stars("K", mags, spec_types, x, y)` |
+| Galaxy group | `galaxy_group()` |
+| Einstein ring | `einstein_ring()`, ray-traced through an isothermal lens instead of a drawn ring |
+| HL Tau-like disk (rings) | `protoplanetary_disk()` |
+| Galactic Centre S-stars | `galactic_centre("2026-09-27")` |
+
+A nebula, which ELVIS does not have, is `nebula_source()`.
+
+## Differences to keep in mind
 
 - **Contrast** is always the flux ratio companion / primary (`1e-5` for a
   faint planet). scopesim-targets multiplies by the contrast for `Binary` but

@@ -3,7 +3,8 @@ import numpy as np
 from astropy import units as u
 from astropy.modeling.models import Ring2D
 
-from scopesim_templates.misc import ring_profile, circumstellar_disk
+from scopesim_templates.misc import (ring_profile, circumstellar_disk,
+                                     gaussian_profile, gaussian_source)
 
 
 def _extent(mask, axis):
@@ -70,3 +71,31 @@ class TestCircumstellarDisk:
         src = circumstellar_disk(300 * u.K, 1, 0.5, pixel_scale=0.1)
         img = src.fields[0].field.data
         assert img.shape == (37, 37)
+
+
+class TestGaussianProfile:
+    def test_is_normalised_and_centred(self):
+        img = gaussian_profile((101, 101), 5)
+        yy, xx = np.indices(img.shape)
+        assert img.sum() == pytest.approx(1)
+        assert (img * xx).sum() == pytest.approx(50)
+
+    def test_widths_along_and_across_angle(self):
+        img = gaussian_profile((201, 201), 10, 4, angle=90)
+        yy, xx = np.indices(img.shape)
+        sx = np.sqrt((img * (xx - 100) ** 2).sum())
+        sy = np.sqrt((img * (yy - 100) ** 2).sum())
+        assert (sx, sy) == pytest.approx((4, 10), rel=0.01)
+
+    def test_bad_width_raises(self):
+        with pytest.raises(ValueError):
+            gaussian_profile((11, 11), 0)
+
+
+@pytest.mark.webtest
+class TestGaussianSource:
+    def test_size(self):
+        src = gaussian_source("blackbody:5000", 0.1, pixel_scale=0.01,
+                              amplitude=20, filter_curve="V")
+        assert src.fields[0].field.data.shape == (101, 101)
+        assert src.meta["object"] == "gaussian_source"

@@ -6,3 +6,4 @@ from .clusters import *
 from .agns import *
 from .quasars import *
 from .deep_field import hubble_ultra_deep_field
+from .composites import *
