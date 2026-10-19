@@ -4,7 +4,7 @@ from astropy import units as u
 from astropy.coordinates import SkyCoord
 
 from scopesim_templates.utils.positions import (to_arcsec, offset_to_xy,
-                                                skycoord_to_xy)
+                                                skycoord_to_xy, as_xy)
 
 
 class TestToArcsec:
@@ -63,3 +63,21 @@ class TestSkyCoordToXY:
                           unit=("hourangle", "deg"))
         x, y = skycoord_to_xy(centre, "17:45:40.04", "-29:00:28.2")
         assert abs(x.value) < 1e-9 and abs(y.value) < 1e-9
+
+
+class TestAsXY:
+    def test_floats_and_lists(self):
+        x, y = as_xy([1, 2], [3, 4])
+        assert x.unit == u.arcsec and list(y.value) == [3, 4]
+
+    def test_skycoord(self):
+        x, y = as_xy(SkyCoord(1 / 3600, 0, unit="deg"))
+        assert x.value == pytest.approx(1) and y.value == pytest.approx(0)
+
+    def test_skycoord_with_y_raises(self):
+        with pytest.raises(ValueError):
+            as_xy(SkyCoord(0, 0, unit="deg"), 1)
+
+    def test_missing_y_raises(self):
+        with pytest.raises(TypeError):
+            as_xy(1)

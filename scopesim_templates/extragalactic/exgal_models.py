@@ -10,7 +10,7 @@ from astropy import units as u
 from astropy.units import UnitsError
 from astropy.modeling.core import Fittable2DModel
 from astropy.modeling.parameters import Parameter
-from astropy.modeling.models import Sersic2D
+from astropy.modeling.models import GeneralSersic2D
 
 
 # Definitions
@@ -225,11 +225,12 @@ class GalaxyBase:
     q: float = 0.2
     e_in: float = 0.04
     e_out: float = -0.42
+    c: float = 0.0  # boxiness: < 0 disky, > 0 boxy
 
     @property
     def intensity(self) -> np.ndarray:
         """
-        2D light distribution following a Sersic2D profile.
+        2D light distribution following a (generalised) Sersic profile.
 
         Returns
         -------
@@ -237,15 +238,16 @@ class GalaxyBase:
             Light distribution map.
 
         """
-        mod = Sersic2D(x_0=self.x_0,
-                       y_0=self.y_0,
-                       amplitude=self.amplitude,
-                       r_eff=self.r_eff,
-                       n=self.n,
-                       ellip=self.ellip,
-                       # theta is in degrees, as for the velocity and
-                       # dispersion fields; Sersic2D wants radians.
-                       theta=(self.theta << u.deg).to_value(u.rad))
+        mod = GeneralSersic2D(x_0=self.x_0,
+                              y_0=self.y_0,
+                              amplitude=self.amplitude,
+                              r_eff=self.r_eff,
+                              n=self.n,
+                              ellip=self.ellip,
+                              # theta is in degrees, as for the velocity and
+                              # dispersion fields; the model wants radians.
+                              theta=(self.theta << u.deg).to_value(u.rad),
+                              c=self.c)
         return mod(self.x, self.y)
 
     @property

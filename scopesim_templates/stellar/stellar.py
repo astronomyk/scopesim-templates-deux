@@ -12,6 +12,7 @@ from spextra import Spextrum
 from ..rc import Source
 from ..utils.general_utils import RA0, DEC0, add_function_call_str,\
     function_call_str, get_rng
+from ..utils.positions import as_xy
 from . import stars_utils as su
 
 
@@ -140,7 +141,7 @@ def star_grid(n, mmin, mmax, filter_name="V", separation=1, ra=RA0, dec=DEC0):
 
 @deprecated_renamed_argument("mags", "amplitudes", "0.1")
 @add_function_call_str
-def stars(filter_name, amplitudes, spec_types, x, y, library="pyckles",
+def stars(filter_name, amplitudes, spec_types, x, y=None, library="pyckles",
           ra=RA0, dec=DEC0):
     """
     Create a scopesim.Source object for a list of stars with given amplitudes.
@@ -159,9 +160,13 @@ def stars(filter_name, amplitudes, spec_types, x, y, library="pyckles",
     spec_types : list of strings
         the spectral type(s) of the stars, e.g. "A0V", "G5III"
     x, y : arrays of float
-        [arcsec] x and y coordinates of the stars on the focal plane
+        [arcsec] x and y coordinates of the stars on the focal plane.
+        Alternatively, ``x`` can be an ``astropy.coordinates.SkyCoord``
+        array of sky positions (leave out ``y``), which are projected around
+        (``ra``, ``dec``) with East to +x.
     ra, dec : float
-        coordinates of the center of the field
+        coordinates of the center of the field. Only used to project
+        ``SkyCoord`` positions.
     library: str
         Library where the spectroscopic types are taken. By default are taken
         from the pickles library using the `pyckles` package. Other libraries
@@ -221,8 +226,7 @@ def stars(filter_name, amplitudes, spec_types, x, y, library="pyckles",
         # Don't attempt to convert e.g. Jy to mag
         amplitudes <<= u.mag
 
-    x <<= u.arcsec
-    y <<= u.arcsec
+    x, y = as_xy(x, y, ra, dec)
 
     unique_types = list(dict.fromkeys(spec_types))  # unique, ordered
     if library == "pyckles":

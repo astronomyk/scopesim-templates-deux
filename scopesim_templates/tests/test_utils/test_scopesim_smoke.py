@@ -30,6 +30,11 @@ BUILDERS = {
     "galactic_centre": lambda: stellar.galactic_centre("2024-01-01"),
     "s301": lambda: stellar.s301("J2031.8"),
     "omega_cen": lambda: stellar.omega_cen(fov=3, seed=1),
+    "binary": lambda: stellar.binary("V", 12, ("G2V", "M3V"), separation=1,
+                                     contrast=0.3),
+    "planetary_system": lambda: stellar.planetary_system(
+        "V", 12, planets=[{"separation": 1, "contrast": 0.01,
+                           "sed": "blackbody:3000"}]),
     # NB: kc96 SEDs stop at ~1 um, i.e. outside the example train's NIR band
     "galaxy": lambda: extragalactic.galaxy("brown/NGC0584", amplitude=12,
                                            filter_curve="V", r_eff=2,
@@ -44,6 +49,9 @@ BUILDERS = {
     "nebulosity": lambda: misc.source_from_array(
         misc.nebulosity((64, 64), seed=1), SED, pixel_scale=0.3,
         amplitude=10, filter_curve="V"),
+    "circumstellar_disk": lambda: misc.circumstellar_disk(
+        "blackbody:5000", 1, 0.5, pixel_scale=0.05, amplitude=10,
+        filter_curve="V", inclination=60),
 }
 
 

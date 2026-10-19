@@ -57,7 +57,8 @@ def galaxy(sed,           # The SED of the galaxy
            theta=0,         # position angle
            extend=3,     # extend in units of r_eff
            ra=0.0,
-           dec=0.0):
+           dec=0.0,
+           c=0.0):         # boxiness
     """
     Create a source object of a galaxy described by its Sersic index and other parameters.
 
@@ -90,6 +91,9 @@ def galaxy(sed,           # The SED of the galaxy
         RA of the source in degree, default 0.0
     dec : float, str
         DEC of the source in degree, default 0.0
+    c : float
+        Boxiness of the isophotes (``GeneralSersic2D``): negative is disky,
+        positive is boxy, 0 (default) is elliptical.
 
     Returns
     -------
@@ -97,7 +101,7 @@ def galaxy(sed,           # The SED of the galaxy
     """
     pixel_scale <<= u.arcsec
     gal = _galaxy_setup(pixel_scale, r_eff, extend,
-                        n=n, ellip=ellip, theta=theta)
+                        n=n, ellip=ellip, theta=theta, c=c)
 
     spec = _make_spectrum(sed)
     if z:

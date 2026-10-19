@@ -13,7 +13,6 @@ from astropy import units as u
 from ..rc import Source
 from ..utils.general_utils import RA0, DEC0, add_function_call_str
 from ..utils.positions import to_arcsec
-from ..utils.spectra import resolve_sed
 from .misc import source_from_array
 
 
@@ -143,6 +142,6 @@ def circumstellar_disk(sed, r_in, width, pixel_scale, amplitude=None,
     img = ring_profile((size, size), r_in, width, inclination=inclination,
                        angle=angle, oversample=oversample)
 
-    src = source_from_array(img, resolve_sed(sed), pixel_scale, amplitude,
+    src = source_from_array(img, sed, pixel_scale, amplitude,
                             filter_curve, ra=ra, dec=dec)
     return src

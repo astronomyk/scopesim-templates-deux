@@ -7,7 +7,7 @@ from astropy.coordinates import SkyCoord
 from .general_utils import RA0, DEC0
 
 
-__all__ = ["to_arcsec", "offset_to_xy", "skycoord_to_xy"]
+__all__ = ["to_arcsec", "offset_to_xy", "skycoord_to_xy", "as_xy"]
 
 
 def to_arcsec(value, distance=None):
@@ -107,3 +107,31 @@ def skycoord_to_xy(coords, ra=RA0, dec=DEC0):
     centre = SkyCoord(ra, dec, unit=(ra_unit, u.deg))
     offsets = coords.transform_to(centre.skyoffset_frame())
     return offsets.lon.to(u.arcsec), offsets.lat.to(u.arcsec)
+
+
+def as_xy(x, y=None, ra=RA0, dec=DEC0):
+    """
+    Return positions as (x, y) in arcsec, accepting sky coordinates too.
+
+    Parameters
+    ----------
+    x : float, array, u.Quantity, SkyCoord
+        x offsets (floats are arcsec), or sky positions, which are projected
+        around (``ra``, ``dec``) with :func:`skycoord_to_xy`.
+    y : float, array, u.Quantity, optional
+        y offsets. Must be None (or 0) if ``x`` is a ``SkyCoord``.
+    ra, dec : float, str
+        Field centre, only used for ``SkyCoord`` input.
+
+    Returns
+    -------
+    x, y : u.Quantity
+        In arcsec.
+    """
+    if isinstance(x, SkyCoord):
+        if y is not None and np.any(y != 0):
+            raise ValueError("Give either a SkyCoord or x and y, not both.")
+        return skycoord_to_xy(x, ra, dec)
+    if y is None:
+        raise TypeError("y is needed unless x is a SkyCoord.")
+    return u.Quantity(x, u.arcsec), u.Quantity(y, u.arcsec)
