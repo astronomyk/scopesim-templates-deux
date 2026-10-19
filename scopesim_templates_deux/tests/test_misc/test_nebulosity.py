@@ -150,7 +150,7 @@ class TestUpsample:
 class TestNebulaSource:
     @pytest.mark.webtest
     def test_returns_source_with_nebula_image(self):
-        from scopesim_templates.misc import nebula_source
+        from scopesim_templates_deux.misc import nebula_source
         src = nebula_source((64, 96), pixel_scale=0.2, envelope="shell",
                             seed=3)
         img = src.fields[0].field.data
@@ -164,7 +164,7 @@ class TestNebulaSource:
 class TestEmissionLineSpectrum:
     def test_line_ratios(self):
         from astropy import units as u
-        from scopesim_templates.utils.spectra import emission_line_spectrum
+        from scopesim_templates_deux.utils.spectra import emission_line_spectrum
         spec = emission_line_spectrum({"a": (5000, 1.0), "b": (6000, 3.0)},
                                       fwhm=2 * u.AA, continuum=0)
         waves = np.linspace(4900, 6100, 200001) * u.AA

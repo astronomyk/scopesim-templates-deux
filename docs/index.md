@@ -88,13 +88,13 @@ from_scopesim_targets
    :recursive:
    :caption: Package Contents
 
-   scopesim_templates.stellar
-   scopesim_templates.extragalactic
-   scopesim_templates.calibration.calibration
-   scopesim_templates.misc.misc
-   scopesim_templates.misc.shapes
-   scopesim_templates.misc.nebula
-   scopesim_templates.utils.photometry
-   scopesim_templates.utils.positions
-   scopesim_templates.utils.spectra
+   scopesim_templates_deux.stellar
+   scopesim_templates_deux.extragalactic
+   scopesim_templates_deux.calibration.calibration
+   scopesim_templates_deux.misc.misc
+   scopesim_templates_deux.misc.shapes
+   scopesim_templates_deux.misc.nebula
+   scopesim_templates_deux.utils.photometry
+   scopesim_templates_deux.utils.positions
+   scopesim_templates_deux.utils.spectra
 ```

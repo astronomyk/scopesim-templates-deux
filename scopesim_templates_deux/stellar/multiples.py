@@ -71,7 +71,7 @@ def binary(filter_name, amplitude, spec_types=("A0V", "A0V"), separation=1,
     x, y : float, u.Quantity
         Position of the primary, in arcsec from the field centre.
     library : str
-        Spectral library, see :func:`~scopesim_templates.stellar.stars`.
+        Spectral library, see :func:`~scopesim_templates_deux.stellar.stars`.
     ra, dec : float, str
         Field centre, stored in the meta data only.
 
@@ -85,7 +85,7 @@ def binary(filter_name, amplitude, spec_types=("A0V", "A0V"), separation=1,
     A G2V + M3V binary at 10 pc, separated by 50 AU towards the East::
 
         >>> from astropy import units as u
-        >>> from scopesim_templates.stellar import binary
+        >>> from scopesim_templates_deux.stellar import binary
         >>> src = binary("Ks", 8, spec_types=("G2V", "M3V"),
         ...              separation=50 * u.AU, position_angle=90,
         ...              contrast=0.05, distance=10 * u.pc)
@@ -174,7 +174,7 @@ def planetary_system(filter_name, amplitude, spec_type="G2V", planets=(),
         - ``contrast`` (required): flux ratio planet / host star in
           ``filter_name``, e.g. ``1e-5``,
         - ``position_angle``: from North through East, default 0 [deg],
-        - ``sed``: anything :func:`~scopesim_templates.utils.spectra.resolve_sed`
+        - ``sed``: anything :func:`~scopesim_templates_deux.utils.spectra.resolve_sed`
           accepts, default ``"irtf/Neptune"``,
         - ``name``: label for the ``spec_types`` column,
         - ``distance``: overrides the system ``distance``.
@@ -191,7 +191,7 @@ def planetary_system(filter_name, amplitude, spec_type="G2V", planets=(),
         Position of the host star, in arcsec from the field centre.
     library : str
         Spectral library for the star(s), see
-        :func:`~scopesim_templates.stellar.stars`.
+        :func:`~scopesim_templates_deux.stellar.stars`.
     ra, dec : float, str
         Field centre, stored in the meta data only.
 
@@ -206,7 +206,7 @@ def planetary_system(filter_name, amplitude, spec_type="G2V", planets=(),
     A Sun-like star at 10 pc with two planets::
 
         >>> from astropy import units as u
-        >>> from scopesim_templates.stellar import planetary_system
+        >>> from scopesim_templates_deux.stellar import planetary_system
         >>> src = planetary_system(
         ...     "Ks", 5, "G2V", distance=10 * u.pc,
         ...     planets=[{"separation": 5 * u.AU, "contrast": 1e-5},
@@ -260,7 +260,7 @@ def exoplanet(filter_name, amplitude, separation, contrast, spec_type="G2V",
     ::
 
         >>> from astropy import units as u
-        >>> from scopesim_templates.stellar import exoplanet
+        >>> from scopesim_templates_deux.stellar import exoplanet
         >>> src = exoplanet("Ks", 4, separation=0.3, contrast=1e-4,
         ...                 spec_type="A0V", sed="blackbody:1200")
     """

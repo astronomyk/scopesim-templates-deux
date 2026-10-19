@@ -62,7 +62,7 @@ def point_source(sed, amplitude=None, filter_curve="V", x=0, y=0,
     ----------
     sed : str, u.Quantity, Spextrum or synphot.SourceSpectrum
         A speXtra database name, a spectrum object, or any other form that
-        :func:`~scopesim_templates.utils.spectra.resolve_sed` accepts, such
+        :func:`~scopesim_templates_deux.utils.spectra.resolve_sed` accepts, such
         as ``"blackbody:5800"`` or ``"file:my_spectrum.fits"``.
     amplitude : float
         flux or magnitude of the object. The SED will be scaled to that value
@@ -319,7 +319,7 @@ def source_from_array(arr, sed, pixel_scale, amplitude, filter_curve,
         A 2D numpy array, indexed ``arr[y, x]``.
     sed : str, u.Quantity, Spextrum or synphot.SourceSpectrum
         Any SED available in the speXtra library, a spectrum object, or any
-        other form :func:`~scopesim_templates.utils.spectra.resolve_sed`
+        other form :func:`~scopesim_templates_deux.utils.spectra.resolve_sed`
         accepts (e.g. ``"blackbody:5800"``).
     pixel_scale : float, u.Quantity
         Pixel scale on the sky. Floats are taken as arcsec.

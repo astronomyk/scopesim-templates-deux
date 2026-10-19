@@ -5,7 +5,7 @@ from synphot import SourceSpectrum
 from synphot.models import ConstFlux1D
 from spextra import Spextrum
 
-from scopesim_templates.utils.spectra import resolve_sed
+from scopesim_templates_deux.utils.spectra import resolve_sed
 
 WAVES = np.linspace(2000, 60000, 20000) * u.AA
 

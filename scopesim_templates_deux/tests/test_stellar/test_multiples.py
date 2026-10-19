@@ -2,8 +2,8 @@ import pytest
 import numpy as np
 from astropy import units as u
 
-from scopesim_templates.rc import Source
-from scopesim_templates.stellar import binary, planetary_system, exoplanet
+from scopesim_templates_deux.rc import Source
+from scopesim_templates_deux.stellar import binary, planetary_system, exoplanet
 
 
 def _table(src):

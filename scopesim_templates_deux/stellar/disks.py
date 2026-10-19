@@ -78,13 +78,13 @@ def protoplanetary_disk(filter_name="K", amplitude=13, spec_type="K5V",
         Of the disk image. Floats are arcsec.
     disk_sed : optional
         Spectrum of the disk light, see
-        :func:`~scopesim_templates.utils.spectra.resolve_sed`. Default is
+        :func:`~scopesim_templates_deux.utils.spectra.resolve_sed`. Default is
         the stellar spectrum, i.e. scattered starlight.
     x, y : float
         Position of the star, in arcsec from the field centre.
     library : str
         Spectral library of the star, see
-        :func:`~scopesim_templates.stellar.stars`.
+        :func:`~scopesim_templates_deux.stellar.stars`.
     ra, dec : float, str
         Field centre, stored in the meta data only.
 
@@ -98,7 +98,7 @@ def protoplanetary_disk(filter_name="K", amplitude=13, spec_type="K5V",
     HL Tau as in the ELVIS example, and a face-on version at 100 pc::
 
         >>> from astropy import units as u
-        >>> from scopesim_templates.stellar import protoplanetary_disk
+        >>> from scopesim_templates_deux.stellar import protoplanetary_disk
         >>> src = protoplanetary_disk()
         >>> src = protoplanetary_disk(inclination=0, distance=100 * u.pc)
     """

@@ -12,13 +12,13 @@ from astropy import units as u
 from astropy.coordinates import SkyCoord
 from astropy.modeling.models import GeneralSersic2D, Sersic2D
 
-from scopesim_templates import (star, stars, galaxy, binary,
+from scopesim_templates_deux import (star, stars, galaxy, binary,
                                 planetary_system, exoplanet,
                                 circumstellar_disk, gaussian_source,
                                 cluster, galaxy_with_supernova, galaxy_group,
                                 einstein_ring, protoplanetary_disk)
-from scopesim_templates.extragalactic.exgal_models import GalaxyBase
-from scopesim_templates.misc import point_source
+from scopesim_templates_deux.extragalactic.exgal_models import GalaxyBase
+from scopesim_templates_deux.misc import point_source
 
 
 def _table(src):

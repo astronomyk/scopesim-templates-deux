@@ -1,7 +1,7 @@
 import pytest
 from astropy import units as u
 
-from scopesim_templates.utils.photometry import (as_amplitude, is_magnitude,
+from scopesim_templates_deux.utils.photometry import (as_amplitude, is_magnitude,
                                                  scale_amplitude)
 
 

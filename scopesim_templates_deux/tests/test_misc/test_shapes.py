@@ -3,7 +3,7 @@ import numpy as np
 from astropy import units as u
 from astropy.modeling.models import Ring2D
 
-from scopesim_templates.misc import (ring_profile, circumstellar_disk,
+from scopesim_templates_deux.misc import (ring_profile, circumstellar_disk,
                                      gaussian_profile, gaussian_source)
 
 

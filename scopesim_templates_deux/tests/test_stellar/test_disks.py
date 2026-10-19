@@ -2,7 +2,7 @@ import pytest
 import numpy as np
 from astropy import units as u
 
-from scopesim_templates.stellar import protoplanetary_disk
+from scopesim_templates_deux.stellar import protoplanetary_disk
 
 
 def _extent(mask, axis):

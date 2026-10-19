@@ -2,10 +2,10 @@ import pytest
 import numpy as np
 from astropy import units as u
 
-from scopesim_templates.extragalactic import (galaxy_with_supernova,
+from scopesim_templates_deux.extragalactic import (galaxy_with_supernova,
                                               galaxy_group, einstein_ring,
                                               lensed_sersic)
-from scopesim_templates.extragalactic.composites import _sis_point_images
+from scopesim_templates_deux.extragalactic.composites import _sis_point_images
 
 
 class TestLensedSersic:

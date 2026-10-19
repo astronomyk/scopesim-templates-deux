@@ -3,7 +3,7 @@ import numpy as np
 from astropy import units as u
 from astropy.coordinates import SkyCoord
 
-from scopesim_templates.utils.positions import (to_arcsec, offset_to_xy,
+from scopesim_templates_deux.utils.positions import (to_arcsec, offset_to_xy,
                                                 skycoord_to_xy, as_xy)
 
 

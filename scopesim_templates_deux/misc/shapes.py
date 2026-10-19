@@ -146,7 +146,7 @@ def circumstellar_disk(sed, r_in, width, pixel_scale, amplitude=None,
     Parameters
     ----------
     sed : str, u.Quantity, Spextrum, synphot.SourceSpectrum
-        Anything :func:`~scopesim_templates.utils.spectra.resolve_sed`
+        Anything :func:`~scopesim_templates_deux.utils.spectra.resolve_sed`
         accepts, e.g. ``"blackbody:80"`` or ``"spex:kc96/s0"``.
     r_in, width : float, u.Quantity
         Inner radius and width of the ring. Floats are arcsec; lengths such
@@ -170,7 +170,7 @@ def circumstellar_disk(sed, r_in, width, pixel_scale, amplitude=None,
     oversample : int
         Sub-pixels per pixel and axis, see :func:`ring_profile`.
     ra, dec : float, str
-        Image centre, see :func:`~scopesim_templates.misc.source_from_array`.
+        Image centre, see :func:`~scopesim_templates_deux.misc.source_from_array`.
 
     Returns
     -------
@@ -181,7 +181,7 @@ def circumstellar_disk(sed, r_in, width, pixel_scale, amplitude=None,
     A 40-80 AU debris disk at 20 pc, inclined by 60 deg::
 
         >>> from astropy import units as u
-        >>> from scopesim_templates.misc import circumstellar_disk
+        >>> from scopesim_templates_deux.misc import circumstellar_disk
         >>> src = circumstellar_disk("blackbody:60", 40 * u.AU, 40 * u.AU,
         ...                          pixel_scale=0.05, amplitude=14,
         ...                          filter_curve="Ks", inclination=60,
@@ -210,7 +210,7 @@ def gaussian_source(sed, sigma, pixel_scale, amplitude=None,
     Parameters
     ----------
     sed : str, u.Quantity, Spextrum, synphot.SourceSpectrum
-        Anything :func:`~scopesim_templates.utils.spectra.resolve_sed`
+        Anything :func:`~scopesim_templates_deux.utils.spectra.resolve_sed`
         accepts.
     sigma : float, u.Quantity
         Standard deviation along the major axis. Floats are arcsec; lengths
@@ -232,7 +232,7 @@ def gaussian_source(sed, sigma, pixel_scale, amplitude=None,
     extend : float
         Image half-size in units of ``sigma``.
     ra, dec : float, str
-        Image centre, see :func:`~scopesim_templates.misc.source_from_array`.
+        Image centre, see :func:`~scopesim_templates_deux.misc.source_from_array`.
 
     Returns
     -------
@@ -242,7 +242,7 @@ def gaussian_source(sed, sigma, pixel_scale, amplitude=None,
     --------
     ::
 
-        >>> from scopesim_templates.misc import gaussian_source
+        >>> from scopesim_templates_deux.misc import gaussian_source
         >>> src = gaussian_source("brown/NGC1068", 0.02, pixel_scale=0.004,
         ...                       amplitude=21, filter_curve="H")
     """

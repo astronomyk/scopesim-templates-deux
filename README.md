@@ -110,7 +110,7 @@ the field centre. Stochastic templates take a `seed` argument (an `int` or a
 
 Every `sed` argument also accepts `"blackbody:<T>"` and `"file:<path>"`. If you
 are used to [scopesim-targets](https://github.com/AstarVienna/scopesim-targets),
-see [Coming from scopesim-targets](https://scopesim-templates.readthedocs.io/en/latest/from_scopesim_targets.html).
+see [Coming from scopesim-targets](docs/from_scopesim_targets.md).
 
 Please see the documentation for how to use each source, and contact us (raise
 an issue or submit a pull request) if more specialized sources are needed.

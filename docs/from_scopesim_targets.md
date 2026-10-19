@@ -56,5 +56,5 @@ A nebula, which ELVIS does not have, is `nebula_source()`.
 - The YAML syntax (`!Star`, `!qty`, `!Coord`) is not supported; call the
   functions from Python instead.
 
-Each row above has a test in `scopesim_templates/tests/test_utils/test_targets_parity.py`.
+Each row above has a test in `scopesim_templates_deux/tests/test_utils/test_targets_parity.py`.
 When scopesim-targets gains a new target type, add a row here and a test there.

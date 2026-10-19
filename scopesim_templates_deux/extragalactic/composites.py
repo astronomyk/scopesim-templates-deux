@@ -87,7 +87,7 @@ def galaxy_with_supernova(sn_amplitude=22, sn_offset=(0.35, 0.2),
         between 1 and 1.5 um (rest frame).
     sn_sed : optional
         Any other spectrum for the transient, see
-        :func:`~scopesim_templates.utils.spectra.resolve_sed`. Overrides
+        :func:`~scopesim_templates_deux.utils.spectra.resolve_sed`. Overrides
         ``sn_type``.
     galaxy_sed : str, Spextrum
         Host galaxy spectrum.
@@ -99,7 +99,7 @@ def galaxy_with_supernova(sn_amplitude=22, sn_offset=(0.35, 0.2),
         Redshift, applied to both spectra before scaling.
     r_eff, n, ellip, theta, pixel_scale, extend
         Sersic profile of the host, see
-        :func:`~scopesim_templates.extragalactic.galaxy`.
+        :func:`~scopesim_templates_deux.extragalactic.galaxy`.
 
     Returns
     -------
@@ -110,7 +110,7 @@ def galaxy_with_supernova(sn_amplitude=22, sn_offset=(0.35, 0.2),
     --------
     A type II-P supernova 3 mag fainter than its host::
 
-        >>> from scopesim_templates.extragalactic import galaxy_with_supernova
+        >>> from scopesim_templates_deux.extragalactic import galaxy_with_supernova
         >>> src = galaxy_with_supernova(sn_amplitude=22.5, sn_type="sn2p",
         ...                             galaxy_amplitude=19.5, z=0.05)
     """
@@ -144,7 +144,7 @@ def galaxy_group(members=DEFAULT_GROUP, filter_curve="H", z=0,
         arcsec, default 0), ``sed``, ``amplitude`` (total brightness, bare
         numbers are AB magnitudes) and optionally ``z``, ``r_eff``, ``n``,
         ``ellip``, ``theta``, ``c`` and ``extend`` as for
-        :func:`~scopesim_templates.extragalactic.galaxy`. The default,
+        :func:`~scopesim_templates_deux.extragalactic.galaxy`. The default,
         :data:`DEFAULT_GROUP`, is the ELVIS example: an elliptical, a
         spiral and a compact starburst within 1.5 arcsec.
     filter_curve : str
@@ -163,7 +163,7 @@ def galaxy_group(members=DEFAULT_GROUP, filter_curve="H", z=0,
     --------
     ::
 
-        >>> from scopesim_templates.extragalactic import galaxy_group
+        >>> from scopesim_templates_deux.extragalactic import galaxy_group
         >>> src = galaxy_group(z=0.1)
         >>> src = galaxy_group([
         ...     {"sed": "brown/NGC4125", "amplitude": 18, "r_eff": 1, "n": 4},
@@ -308,7 +308,7 @@ def einstein_ring(theta_e=0.65, source_offset=(0.12, 0.12),
     lens_amplitude : float, u.Quantity
         Total brightness of the lens galaxy.
     lens_sed, lens_r_eff, lens_n, lens_ellip, lens_theta
-        Lens galaxy, see :func:`~scopesim_templates.extragalactic.galaxy`.
+        Lens galaxy, see :func:`~scopesim_templates_deux.extragalactic.galaxy`.
     filter_curve : str
         Filter for all amplitudes.
     lens_z, source_z : float
@@ -330,7 +330,7 @@ def einstein_ring(theta_e=0.65, source_offset=(0.12, 0.12),
     The default is the ELVIS example, an Einstein ring of 0.65 arcsec with
     two AGN images::
 
-        >>> from scopesim_templates.extragalactic import einstein_ring
+        >>> from scopesim_templates_deux.extragalactic import einstein_ring
         >>> src = einstein_ring()
         >>> round(float(src.meta["arc_magnification"]))
         8
