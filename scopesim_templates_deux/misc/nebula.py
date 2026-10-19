@@ -26,10 +26,13 @@ from concurrent.futures import ThreadPoolExecutor
 import numpy as np
 from scipy import fft, ndimage
 
-from ..utils.general_utils import get_rng
+from ..rc import Source
+from ..utils.general_utils import RA0, DEC0, add_function_call_str, get_rng
+from ..utils.spectra import emission_line_spectrum
+from .misc import source_from_array
 
 
-__all__ = ["nebulosity"]
+__all__ = ["nebulosity", "nebula_source"]
 
 
 def _kgrid(shape, full_shape=None):
@@ -368,3 +371,58 @@ def nebulosity(shape=(1024, 1024), *, power_slope=2.7, outer_scale=0.5,
     image = np.clip(image, 0, None)
     image /= image.max()
     return image.astype(dtype, copy=False)
+
+
+@add_function_call_str
+def nebula_source(shape=(512, 512), pixel_scale=0.1, sed=None, amplitude=12,
+                  filter_curve="Ks", seed=None, ra=RA0, dec=DEC0,
+                  **kwargs) -> Source:
+    """
+    Create a ``Source`` of an emission nebula.
+
+    The image comes from :func:`nebulosity`, the spectrum by default from
+    :func:`~scopesim_templates.utils.spectra.emission_line_spectrum`, i.e.
+    the optical and near-IR lines of an HII region.
+
+    Parameters
+    ----------
+    shape : tuple of int
+        Image shape ``(ny, nx)`` in pixels.
+    pixel_scale : float, u.Quantity
+        Of the image. Floats are arcsec. The nebula covers
+        ``shape * pixel_scale``.
+    sed : optional
+        Anything :func:`~scopesim_templates.utils.spectra.resolve_sed`
+        accepts. Default is an HII-region emission-line spectrum.
+    amplitude : float, u.Quantity, None
+        Total brightness of the whole image in ``filter_curve``. Bare
+        numbers are AB magnitudes. None keeps the SED as it is.
+    filter_curve : str
+        Filter for ``amplitude``.
+    seed : int, np.random.Generator, optional
+        Passed to :func:`nebulosity`.
+    ra, dec : float, str
+        Image centre, see :func:`~scopesim_templates.misc.source_from_array`.
+    **kwargs
+        Any other :func:`nebulosity` parameter, e.g. ``envelope="shell"``,
+        ``power_slope`` or ``warp_strength``.
+
+    Returns
+    -------
+    src : ``scopesim.Source``
+
+    Examples
+    --------
+    A Crescent-like shell, 50 arcsec across::
+
+        >>> from scopesim_templates.misc import nebula_source
+        >>> src = nebula_source((500, 500), pixel_scale=0.1,
+        ...                     envelope="shell", amplitude=8,
+        ...                     filter_curve="Ks", seed=1)
+    """
+    img = nebulosity(shape, seed=seed, **kwargs)
+    if sed is None:
+        sed = emission_line_spectrum()
+    src = source_from_array(img, sed, pixel_scale, amplitude, filter_curve,
+                            ra=ra, dec=dec)
+    return src

@@ -18,11 +18,17 @@ from . import metis
 #               DeprecationWarning, stacklevel=2)
 from .misc.misc import source_from_image, source_from_file, source_from_cube
 from .stellar.stellar import star, stars, star_grid, star_field
+from .stellar.multiples import binary, planetary_system, exoplanet
+from .stellar.disks import protoplanetary_disk
 from .stellar.clusters import cluster
 from .stellar.galactic_centre import galactic_centre
 from .stellar.globular_cluster import globular_cluster
 from .extragalactic.galaxies import galaxy, galaxy3d, elliptical
 from .extragalactic.deep_field import hubble_ultra_deep_field
+from .extragalactic.composites import (galaxy_with_supernova, galaxy_group,
+                                      einstein_ring)
 from .calibration.calibration import empty_sky
+from .misc.shapes import circumstellar_disk, gaussian_source
+from .misc.nebula import nebulosity, nebula_source
 from .micado import darkness, flatlamp
 from . import micado

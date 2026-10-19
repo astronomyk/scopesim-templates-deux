@@ -20,6 +20,8 @@ from spextra.exceptions import ConstructorError
 from ..rc import Source
 from ..utils.general_utils import (add_function_call_str, make_img_wcs_header,
                                    RA0, DEC0)
+from ..utils.positions import as_xy
+from ..utils.spectra import resolve_sed
 
 
 __all__ = ["point_source",
@@ -33,13 +35,7 @@ __all__ = ["point_source",
 
 
 def _make_spectrum(sed):
-    if isinstance(sed, (Spextrum, SourceSpectrum)):
-        return Spextrum(modelclass=sed)
-    try:
-        return Spextrum(sed)
-    except TypeError as err:
-        raise TypeError("Parameter 'sed' must be Spextrum, SourceSpectrum or "
-                        f"str, found {type(sed)=}.") from err
+    return resolve_sed(sed)
 
 
 def _make_scaled_spectrum(sed, amplitude, filter_curve):
@@ -64,30 +60,35 @@ def point_source(sed, amplitude=None, filter_curve="V", x=0, y=0,
 
     Parameters
     ----------
-    sed : str or synphot.Source_Spectrum
-        Passing a str will try to download a sed from the speXtra database
-        alternatively an user manipulated ``synphot.Source_Spectrum`` or
-        compatible object can be provided.
+    sed : str, u.Quantity, Spextrum or synphot.SourceSpectrum
+        A speXtra database name, a spectrum object, or any other form that
+        :func:`~scopesim_templates.utils.spectra.resolve_sed` accepts, such
+        as ``"blackbody:5800"`` or ``"file:my_spectrum.fits"``.
     amplitude : float
         flux or magnitude of the object. The SED will be scaled to that value
         if left to `None` (default) no scaling will be performed
     filter_curve : str
         any astronomical filter in the speXtra or the spanish VO database
-    x : float
-        X-coordinate on the plane in arcsec
+    x : float, astropy.coordinates.SkyCoord
+        X-coordinate on the plane in arcsec, or the position on the sky,
+        which is projected around (``ra``, ``dec``).
     y : float
-        Y-coordinate on the plane in arcsec
+        Y-coordinate on the plane in arcsec. Ignored for a ``SkyCoord``.
     ra : float, str
-        RA coordinates of the center of the field (not used)
+        RA coordinates of the center of the field. Only used for ``SkyCoord``
+        positions.
     dec : float, str
-        DEC coordinates of the center of the field  (not used)
+        DEC coordinates of the center of the field. Only used for
+        ``SkyCoord`` positions.
 
     Return
     ------
     src : ``scopesim.Source``
     """
     spec = _make_scaled_spectrum(sed, amplitude, filter_curve)
-    src = Source(spectra=spec, x=[x], y=[y], ref=[0], weight=[1])
+    x, y = as_xy(x, y, ra, dec)
+    src = Source(spectra=spec, x=[x.to_value(u.arcsec)],
+                 y=[y.to_value(u.arcsec)], ref=[0], weight=[1])
     return src
 
 
@@ -316,8 +317,10 @@ def source_from_array(arr, sed, pixel_scale, amplitude, filter_curve,
     ----------
     arr : np.ndarray
         A 2D numpy array, indexed ``arr[y, x]``.
-    sed : str, Spextrum or synphot.SourceSpectrum
-        Any SED available in the speXtra library, or a spectrum object.
+    sed : str, u.Quantity, Spextrum or synphot.SourceSpectrum
+        Any SED available in the speXtra library, a spectrum object, or any
+        other form :func:`~scopesim_templates.utils.spectra.resolve_sed`
+        accepts (e.g. ``"blackbody:5800"``).
     pixel_scale : float, u.Quantity
         Pixel scale on the sky. Floats are taken as arcsec.
     amplitude : float, u.Quantity, None

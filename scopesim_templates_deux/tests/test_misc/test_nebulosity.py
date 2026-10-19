@@ -145,3 +145,32 @@ class TestUpsample:
     def test_off_pyramid_shape_raises(self):
         with pytest.raises(ValueError):
             neb._upsample(np.ones((10, 10), dtype=np.float32), (64, 64))
+
+
+class TestNebulaSource:
+    @pytest.mark.webtest
+    def test_returns_source_with_nebula_image(self):
+        from scopesim_templates.misc import nebula_source
+        src = nebula_source((64, 96), pixel_scale=0.2, envelope="shell",
+                            seed=3)
+        img = src.fields[0].field.data
+        assert img.shape == (64, 96)
+        assert img.sum() == pytest.approx(1)
+        expected = nebulosity((64, 96), envelope="shell", seed=3)
+        assert np.allclose(img, expected / expected.sum(), rtol=1e-5)
+        assert src.meta["object"] == "nebula_source"
+
+
+class TestEmissionLineSpectrum:
+    def test_line_ratios(self):
+        from astropy import units as u
+        from scopesim_templates.utils.spectra import emission_line_spectrum
+        spec = emission_line_spectrum({"a": (5000, 1.0), "b": (6000, 3.0)},
+                                      fwhm=2 * u.AA, continuum=0)
+        waves = np.linspace(4900, 6100, 200001) * u.AA
+        flam = spec(waves, flux_unit="flam").value
+        dw = np.diff(waves.value)[0]
+        near_a = np.abs(waves.value - 5000) < 20
+        near_b = np.abs(waves.value - 6000) < 20
+        assert flam[near_a].sum() * dw == pytest.approx(1, rel=1e-3)
+        assert flam[near_b].sum() * dw == pytest.approx(3, rel=1e-3)

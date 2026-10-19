@@ -62,6 +62,9 @@ the field centre. Stochastic templates take a `seed` argument (an `int` or a
   - `star`, `stars`: one or more stars with given spectral types and magnitudes
   - `star_field`: a field of stars at random positions
   - `star_grid`: a field of stars on a regular grid
+  - `binary`: a binary star, with the separation in arcsec or AU
+  - `planetary_system`, `exoplanet`: a star (or binary) with planets of given contrast
+  - `protoplanetary_disk`: a young star with a ringed disk, by default like HL Tau
   - `cluster`: a young (age = 0) cluster of a given mass
   - `globular_cluster`: a globular cluster around a central IMBH, with time evolution
   - `omega_cen`, `evolve_omega_cen`: an ω Centauri model (King profile, Jeans
@@ -80,6 +83,9 @@ the field centre. Stochastic templates take a `seed` argument (an `int` or a
   - `elliptical`: a Sérsic model using the Brown et al. (2014) SEDs
   - `hubble_ultra_deep_field`: the HUDF from published catalogues as Sérsic
     profiles, optionally with star-forming clumps
+  - `galaxy_with_supernova`: a host galaxy with a supernova (speXtra SN templates)
+  - `galaxy_group`: several Sérsic galaxies with their own SEDs and positions
+  - `einstein_ring`: a lens galaxy with a ray-traced Einstein ring and lensed AGN images
 
 - `misc`
   - `point_source`: like `star`, but using any SED from the `speXtra` database
@@ -89,7 +95,10 @@ the field centre. Stochastic templates take a `seed` argument (an `int` or a
   - `source_from_imagehdu`: a source from an `ImageHDU` with an arbitrary flux and scale
   - `source_from_imagehdu_with_flux`: a source from an `ImageHDU` whose flux per pixel is known
   - `source_from_cube`: a source from a 3D datacube
-  - `nebulosity`: a procedural, semi-realistic nebula image (use with `source_from_array`)
+  - `nebulosity`: a procedural, semi-realistic nebula image
+  - `nebula_source`: a `Source` of an emission nebula (`nebulosity` image, HII-region line spectrum)
+  - `circumstellar_disk`: a uniform, optionally inclined ring, e.g. a debris disk
+  - `gaussian_source`: an elliptical Gaussian blob
 
 - `calibration`
   - `lamp`: a calibration lamp, i.e. a homogeneous source with emission lines
@@ -98,6 +107,10 @@ the field centre. Stochastic templates take a `seed` argument (an `int` or a
 
 - `micado`, `metis`: instrument-specific calibration sources and test fields
   (flat lamps, pinhole masks, line lists, lasers, VIKING fields)
+
+Every `sed` argument also accepts `"blackbody:<T>"` and `"file:<path>"`. If you
+are used to [scopesim-targets](https://github.com/AstarVienna/scopesim-targets),
+see [Coming from scopesim-targets](https://scopesim-templates.readthedocs.io/en/latest/from_scopesim_targets.html).
 
 Please see the documentation for how to use each source, and contact us (raise
 an issue or submit a pull request) if more specialized sources are needed.

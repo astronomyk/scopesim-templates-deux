@@ -30,6 +30,11 @@ BUILDERS = {
     "galactic_centre": lambda: stellar.galactic_centre("2024-01-01"),
     "s301": lambda: stellar.s301("J2031.8"),
     "omega_cen": lambda: stellar.omega_cen(fov=3, seed=1),
+    "binary": lambda: stellar.binary("V", 12, ("G2V", "M3V"), separation=1,
+                                     contrast=0.3),
+    "planetary_system": lambda: stellar.planetary_system(
+        "V", 12, planets=[{"separation": 1, "contrast": 0.01,
+                           "sed": "blackbody:3000"}]),
     # NB: kc96 SEDs stop at ~1 um, i.e. outside the example train's NIR band
     "galaxy": lambda: extragalactic.galaxy("brown/NGC0584", amplitude=12,
                                            filter_curve="V", r_eff=2,
@@ -44,6 +49,25 @@ BUILDERS = {
     "nebulosity": lambda: misc.source_from_array(
         misc.nebulosity((64, 64), seed=1), SED, pixel_scale=0.3,
         amplitude=10, filter_curve="V"),
+    "galaxy_with_supernova": lambda: extragalactic.galaxy_with_supernova(
+        sn_amplitude=14, galaxy_amplitude=12, r_eff=1, pixel_scale=0.1),
+    "galaxy_group": lambda: extragalactic.galaxy_group(
+        [{"sed": "brown/NGC4125", "amplitude": 12, "r_eff": 1},
+         {"sed": "brown/NGC0628", "amplitude": 13, "x": 5, "r_eff": 0.5}],
+        pixel_scale=0.1),
+    "einstein_ring": lambda: extragalactic.einstein_ring(
+        theta_e=2, source_offset=(0.4, 0.4), source_amplitude=14,
+        qso_amplitude=14, lens_amplitude=13, lens_r_eff=1,
+        source_r_eff=0.3, pixel_scale=0.05),
+    "protoplanetary_disk": lambda: stellar.protoplanetary_disk(
+        amplitude=10, disk_amplitude=10, distance=10, pixel_scale=0.1),
+    "nebula_source": lambda: misc.nebula_source((64, 64), pixel_scale=0.3,
+                                                amplitude=10, seed=1),
+    "gaussian_source": lambda: misc.gaussian_source(
+        SED, 1, pixel_scale=0.2, amplitude=12, filter_curve="V"),
+    "circumstellar_disk": lambda: misc.circumstellar_disk(
+        "blackbody:5000", 1, 0.5, pixel_scale=0.05, amplitude=10,
+        filter_curve="V", inclination=60),
 }
 
 
