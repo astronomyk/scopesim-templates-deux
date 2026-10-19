@@ -69,6 +69,7 @@ notebooks/extragalactic.md
 notebooks/hubble_ultra_deep_field.md
 source_object
 conventions
+from_scopesim_targets
 ```
 
 ## TODO list
@@ -89,4 +90,7 @@ conventions
    scopesim_templates.extragalactic
    scopesim_templates.calibration.calibration
    scopesim_templates.misc.misc
+   scopesim_templates.misc.shapes
+   scopesim_templates.utils.positions
+   scopesim_templates.utils.spectra
 ```

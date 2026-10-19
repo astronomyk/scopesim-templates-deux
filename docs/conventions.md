@@ -32,6 +32,12 @@ templates now follow.
   applies to the light, velocity and dispersion maps alike.
 - `hubble_ultra_deep_field` converts the catalogue's astronomical position
   angle (from North through East) to this convention itself.
+- `ring_profile` and `circumstellar_disk` take the direction of the major
+  axis as `angle`, also counter-clockwise from +x.
+- The *offset* of a companion (`binary`, `planetary_system`, `exoplanet`) is
+  a separation and an astronomical `position_angle`, from North (+y) through
+  East (+x). A separation given as a length (e.g. `50 * u.AU`) needs a
+  `distance`.
 
 ## Brightness
 
@@ -42,8 +48,10 @@ explicit.
 | template | unitless amplitude means |
 |---|---|
 | `star`, `stars`, `star_field`, `star_grid` | Vega magnitude (`u.mag`) |
+| `binary`, `planetary_system`, `exoplanet` | Vega magnitude (`u.mag`) |
 | `point_source`, `uniform_source`, `source_from_array`, `source_from_file` | AB magnitude |
 | `galaxy`, `galaxy3d`, `elliptical` | AB magnitude |
+| `circumstellar_disk` | AB magnitude |
 | `hubble_ultra_deep_field` | AB magnitudes from the catalogue (F160W) |
 
 Image templates normalise the image to sum to 1, so the amplitude is the
