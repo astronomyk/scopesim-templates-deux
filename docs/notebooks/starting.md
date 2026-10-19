@@ -97,8 +97,8 @@ Currently the package contain sources to work with stellar and extragalactic obj
 The following example combines galaxy and a central source simulating an AGN
 
 ```{code-cell} ipython3
-from scopesim_templates.extragalactic import galaxy
-from scopesim_templates.misc import point_source
+from scopesim_templates_deux.extragalactic import galaxy
+from scopesim_templates_deux.misc import point_source
 
 gal = galaxy(sed="kc96/s0", amplitude=15, filter_curve="g")  # This will create a galaxy with an S0 SED from the Kinney-Calzetti library (see speXtra)
 agn = point_source(sed="agn/qso", amplitude=13, filter_curve="g") # and this an AGN

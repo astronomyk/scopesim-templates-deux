@@ -22,13 +22,13 @@ sys.path.insert(0, os.path.abspath('../'))
 
 # -- Project information -----------------------------------------------------
 
-project = 'ScopeSim_templates'
+project = 'ScopeSim_Templates_Deux'
 copyright = '2024, A* Vienna'
 author = 'A* Vienna'
 
 # The full version, including alpha/beta/rc tags, and the short X.Y version
 from importlib.metadata import version as _get_version
-release = _get_version("ScopeSim_Templates")
+release = _get_version("scopesim-templates-deux")
 version = ".".join(release.split(".")[:2])
 
 
@@ -142,7 +142,7 @@ pygments_style = 'default' #'sphinx'
 
 html_theme = "sphinx_book_theme"
 html_theme_options = {
-    "repository_url": "https://github.com/AstarVienna/ScopeSim_Templates",
+    "repository_url": "https://github.com/astronomyk/scopesim-templates-deux",
     "use_repository_button": True,
     "use_download_button": True,
     "home_page_in_toc": True,
@@ -210,7 +210,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'scopesim_templates', 'ScopeSim Templates Documentation',
+    (master_doc, 'scopesim_templates_deux', 'ScopeSim Templates Documentation',
      [author], 1)
 ]
 

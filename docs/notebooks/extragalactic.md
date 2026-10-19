@@ -19,7 +19,7 @@ A few functions that can also helpt to create extragalactic objects
 import numpy as np
 import matplotlib.pyplot as plt
 
-from scopesim_templates.extragalactic import galaxy
+from scopesim_templates_deux.extragalactic import galaxy
 ```
 
 The function `galaxy` will generate a sersic profile with user provided parameters. The function can accept any sed in the [speXtra](https://spextra.readthedocs.io) package.

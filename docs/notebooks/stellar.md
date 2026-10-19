@@ -21,7 +21,7 @@ In the following example we generate a young star cluster with a core radius `r_
 
 ```{code-cell} ipython3
 import numpy as np
-from scopesim_templates.stellar import cluster
+from scopesim_templates_deux.stellar import cluster
 
 src = cluster(mass=1E3, distance=50000, core_radius=1)
 ```
@@ -60,7 +60,7 @@ plt.ylabel("Y [arcsec]")
 These are two functions that are good to test simulations quickly
 
 ```{code-cell} ipython3
-from scopesim_templates.stellar import star_field, star_grid
+from scopesim_templates_deux.stellar import star_field, star_grid
 
 field = star_field(n=400, mmin=15, mmax=25, width=20, height=20, filter_name="Ks")
 grid = star_grid(n=400, mmin=15, mmax=25, separation=1 , filter_name="Ks")
@@ -90,7 +90,7 @@ The core of the `stellar` module is however the `star` function which can create
 In this case we generate a stellar field following a 2D gaussian distribution with a star of every type in the pickles stellar library
 
 ```{code-cell} ipython3
-from scopesim_templates.stellar import stars
+from scopesim_templates_deux.stellar import stars
 from spextra.database import SpecLibrary
 
 lib = SpecLibrary("pickles")

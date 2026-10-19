@@ -27,7 +27,7 @@ its line-of-sight velocity at the requested epoch.
 
 ```{code-cell} ipython3
 from astropy.time import Time
-from scopesim_templates.stellar import galactic_centre
+from scopesim_templates_deux.stellar import galactic_centre
 
 src = galactic_centre(Time("2024-01-01"))
 src.fields[0].field[:5]

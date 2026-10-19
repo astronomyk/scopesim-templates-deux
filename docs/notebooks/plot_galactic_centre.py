@@ -24,7 +24,7 @@ from matplotlib.animation import FuncAnimation, PillowWriter
 from astropy import units as u
 from astropy.time import Time
 
-from scopesim_templates.stellar import galactic_centre
+from scopesim_templates_deux.stellar import galactic_centre
 
 
 HERE = Path(__file__).resolve().parent

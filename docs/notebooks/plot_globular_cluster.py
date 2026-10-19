@@ -22,7 +22,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation, PillowWriter
 
-from scopesim_templates.stellar import globular_cluster
+from scopesim_templates_deux.stellar import globular_cluster
 
 
 HERE = Path(__file__).resolve().parent

@@ -24,7 +24,7 @@ that its sky position and line-of-sight velocity at the user-supplied
 ## Quick example
 
 ```{code-cell} ipython3
-from scopesim_templates.stellar import globular_cluster
+from scopesim_templates_deux.stellar import globular_cluster
 
 src = globular_cluster(density=0.5, fov=20.0, distance_modulus=13.6,
                        imbh_mass=1e4, seed=42)

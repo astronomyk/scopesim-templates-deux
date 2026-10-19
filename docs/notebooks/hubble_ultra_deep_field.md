@@ -24,7 +24,7 @@ distributed point-source clumps, conserving the total flux.
 ## Quick example
 
 ```{code-cell} ipython3
-from scopesim_templates.extragalactic import hubble_ultra_deep_field
+from scopesim_templates_deux.extragalactic import hubble_ultra_deep_field
 
 src = hubble_ultra_deep_field(fov=20.0, mag_limit=27.0)
 src.meta["n_galaxies"], src.meta["total_flux_F160W_mag"]
@@ -51,7 +51,7 @@ The helpers in `extragalactic.deep_field` expose the catalogue directly:
 ```{code-cell} ipython3
 from astropy import units as u
 from astropy.coordinates import SkyCoord
-from scopesim_templates.extragalactic.deep_field import (
+from scopesim_templates_deux.extragalactic.deep_field import (
     HUDF_RA, HUDF_DEC, load_hudf_catalogue, richest_field)
 
 cat = load_hudf_catalogue()

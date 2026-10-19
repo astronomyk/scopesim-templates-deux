@@ -22,7 +22,7 @@ import matplotlib.pyplot as plt
 from matplotlib.colors import LogNorm
 from scipy.ndimage import zoom
 
-from scopesim_templates.extragalactic import hubble_ultra_deep_field
+from scopesim_templates_deux.extragalactic import hubble_ultra_deep_field
 
 
 HERE = Path(__file__).resolve().parent

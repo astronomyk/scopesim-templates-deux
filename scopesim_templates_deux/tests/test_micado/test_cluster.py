@@ -1,0 +1,20 @@
+"""Test cluster."""
+
+from astropy.table import Table
+import pytest
+from synphot import SourceSpectrum
+
+from scopesim_templates_deux.micado import cluster
+from scopesim_templates_deux.rc import Source
+
+
+class TestCluster:
+    """Test cluster."""
+
+    @pytest.mark.webtest
+    def test_cluster_returns_source_object(self):
+        """Test cluster."""
+        sky = cluster()
+        assert isinstance(sky, Source)
+        assert isinstance(sky.spectra[0], SourceSpectrum)
+        assert isinstance(sky.fields[0].field, Table)

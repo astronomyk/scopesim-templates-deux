@@ -19,7 +19,7 @@ There is only an upper limit on this mass: GRAVITY Collaboration 2022
 (A&A 657, L12) allow up to ~3000 Msun inside S2's apocentre.
 
 ```python
-from scopesim_templates.stellar import galactic_centre, galactic_centre_background
+from scopesim_templates_deux.stellar import galactic_centre, galactic_centre_background
 
 bg = galactic_centre_background("2031-10-22", total_mass="gravity2022",
                                 mag_limit=24, seed=42)
@@ -41,7 +41,7 @@ Sgr A*'s NIR counterpart is added as a power law by default.
 
 ```python
 from astropy.time import Time
-from scopesim_templates.stellar import s301, s301_orbit
+from scopesim_templates_deux.stellar import s301, s301_orbit
 
 orbit = s301_orbit(1)
 t_peri = orbit.next_pericentre("2026-01-01")          # ~2031.81
@@ -57,7 +57,7 @@ the turn-off plus an RGB normalised to the observed M/L). It complements the
 simpler, generic `globular_cluster()`.
 
 ```python
-from scopesim_templates.stellar import omega_cen, evolve_omega_cen
+from scopesim_templates_deux.stellar import omega_cen, evolve_omega_cen
 
 src = omega_cen(fov=10, imbh_mass=1e5, mag_limit=27, seed=1)  # epoch J2030
 later = evolve_omega_cen(src, "J2045")                       # same stars

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 Off-tree generator for the vendored HUDF catalogue used by
-``scopesim_templates.extragalactic.hubble_ultra_deep_field``.
+``scopesim_templates_deux.extragalactic.hubble_ultra_deep_field``.
 
 Queries VizieR for
 
@@ -13,7 +13,7 @@ Queries VizieR for
   mass, F606W flux),
 
 cross-matches them positionally (0.5 arcsec), and writes a small FITS table
-to ``scopesim_templates/extragalactic/data/hudf_catalogue.fits``.
+to ``scopesim_templates_deux/extragalactic/data/hudf_catalogue.fits``.
 
 This script is **not** part of the installed package and is not needed at
 run time. Re-run it only to refresh the vendored catalogue. It needs network
@@ -40,7 +40,7 @@ from astropy.table import Table
 #: HUDF ACS field centre (Beckwith et al. 2006, AJ 132, 1729), degrees.
 HUDF_CENTRE = (53.1625, -27.79142)
 VIZIER_ASU = "https://vizier.cds.unistra.fr/viz-bin/asu-tsv"
-OUT_PATH = (Path(__file__).resolve().parents[1] / "scopesim_templates"
+OUT_PATH = (Path(__file__).resolve().parents[1] / "scopesim_templates_deux"
             / "extragalactic" / "data" / "hudf_catalogue.fits")
 
 

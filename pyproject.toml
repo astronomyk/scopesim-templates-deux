@@ -1,7 +1,7 @@
 [project]
-name = "ScopeSim_Templates"
-version = "0.9.1.dev1"
-description = "On-sky source templates for ScopeSim"
+name = "scopesim-templates-deux"
+version = "0.10.0.dev0"
+description = "On-sky source templates for ScopeSim (interim fork of ScopeSim_Templates)"
 authors = [
     {name = "Astar Vienna", email = "astar.astro@univie.ac.at"}
 ]
@@ -32,10 +32,9 @@ dependencies = [
 ]
 
 [project.urls]
-Repository = "https://github.com/AstarVienna/ScopeSim_Templates/"
-Documentation = "https://scopesim-templates.readthedocs.io/"
-"Bug Tracker" = "https://github.com/AstarVienna/ScopeSim_Templates/issues"
-Changelog = "https://github.com/AstarVienna/ScopeSim_Templates/releases"
+Repository = "https://github.com/astronomyk/scopesim-templates-deux"
+"Bug Tracker" = "https://github.com/astronomyk/scopesim-templates-deux/issues"
+"Upstream" = "https://github.com/AstarVienna/ScopeSim_Templates"
 
 
 [tool.poetry]
@@ -47,12 +46,12 @@ classifiers = [
 # Keep the wheel lean: tests, their data and documentation figures are not
 # needed at runtime.
 exclude = [
-    "scopesim_templates/tests",
-    "scopesim_templates/**/*.eps",
+    "scopesim_templates_deux/tests",
+    "scopesim_templates_deux/**/*.eps",
 ]
 # ...but ship the tests in the sdist, so downstream packagers can run them.
 include = [
-    { path = "scopesim_templates/tests", format = "sdist" },
+    { path = "scopesim_templates_deux/tests", format = "sdist" },
 ]
 
 
@@ -78,7 +77,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.pytest.ini_options]
 addopts = "--strict-markers"
-testpaths = ["scopesim_templates"]
+testpaths = ["scopesim_templates_deux"]
 markers = [
     "webtest: marks tests as requiring network (deselect with '-m \"not webtest\"')",
     "slow: marks tests that take more than ~30 s (deselect with '-m \"not slow\"')",
@@ -86,4 +85,4 @@ markers = [
 ]
 
 [tool.coverage.report]
-omit = ["scopesim_templates/tests/*"]
+omit = ["scopesim_templates_deux/tests/*"]

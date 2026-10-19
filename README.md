@@ -1,35 +1,39 @@
-# ScopeSim Templates
-
-[![Poetry](https://img.shields.io/endpoint?url=https://python-poetry.org/badge/v0.json)](https://python-poetry.org/)
-[![Build Status](https://github.com/AstarVienna/ScopeSim_Templates/actions/workflows/tests.yml/badge.svg)](https://github.com/AstarVienna/ScopeSim_Templates/actions/workflows/tests.yml/badge.svg)
-[![Documentation Status](https://readthedocs.org/projects/scopesim-templates/badge/?version=latest)](https://scopesim-templates.readthedocs.io)
-[![Codecov](https://img.shields.io/codecov/c/github/AstarVienna/ScopeSim_Templates/branch/main?logo=codecov)](https://app.codecov.io/gh/AstarVienna/ScopeSim_Templates/tree/main)
-
-[![PyPI - Version](https://img.shields.io/pypi/v/ScopeSim-Templates)](https://pypi.org/project/ScopeSim-Templates/)
-![PyPI - Python Version](https://img.shields.io/pypi/pyversions/ScopeSim-Templates)
-![GitHub Release Date](https://img.shields.io/github/release-date/AstarVienna/ScopeSim_Templates)
-![dev version](https://img.shields.io/badge/dynamic/toml?url=https%3A%2F%2Fraw.githubusercontent.com%2FAstarVienna%2FScopeSim_Templates%2Fmain%2Fpyproject.toml&query=%24.project.version&label=dev%20version&color=teal)
+# ScopeSim Templates Deux
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
-This package contains a number of templates to generate `Source` objects to be used in simulations with the [ScopeSim Simulator](https://scopesim.readthedocs.io/en/latest/)
+**An interim fork of [ScopeSim_Templates](https://github.com/AstarVienna/ScopeSim_Templates)**,
+made so its refactor and new templates can be used before the upstream review is done. The two
+packages will be reconciled later (or this one discarded). It installs as `scopesim-templates-deux` and
+imports as `scopesim_templates_deux`, so it can sit next to the official package without clashing.
 
-The Documentation can be found here: https://scopesim-templates.readthedocs.io/en/latest
+What is different from upstream 0.9 is summarised in
+[`docs/audit/release-notes-0.10.0-draft.md`](docs/audit/release-notes-0.10.0-draft.md)
+and the audit in [`docs/audit/`](docs/audit/).
+
+This package contains a number of templates to generate `Source` objects to be used in simulations with the [ScopeSim Simulator](https://scopesim.readthedocs.io/en/latest/)
 
 ## Installation
 
-The best way to install the software is to use `pip`
+Install straight from GitHub:
 
 ``` bash
-pip install scopesim_templates
+pip install git+https://github.com/astronomyk/scopesim-templates-deux
 ```
 
 To install the development version you can clone the repository
 
 ``` bash
-git clone https://github.com/AstarVienna/ScopeSim_Templates/
-cd ScopeSim_Templates
+git clone https://github.com/astronomyk/scopesim-templates-deux
+cd scopesim-templates-deux
 pip install -e .
+```
+
+Then use it like the original, with the new import name:
+
+``` python
+from scopesim_templates_deux.stellar import star_field
+src = star_field(n=100, mmin=15, mmax=20, width=10, seed=42)
 ```
 
 ## Requirements
@@ -52,7 +56,7 @@ In a nutshell a `Source` object contains a spatial and spectral description of t
 All templates return a `scopesim.Source`. Positions are offsets in arcsec from
 the field centre. Stochastic templates take a `seed` argument (an `int` or a
 `numpy.random.Generator`); without it every call gives a new realisation (see
-[Units and conventions](https://scopesim-templates.readthedocs.io/en/latest/conventions.html)).
+[Units and conventions](docs/conventions.md)).
 
 - `stellar`
   - `star`, `stars`: one or more stars with given spectral types and magnitudes

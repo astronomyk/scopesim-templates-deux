@@ -60,7 +60,7 @@ brightness (e.g. `uniform_source`, which is per arcsec²).
   package-wide default:
 
   ```python
-  from scopesim_templates.rc import __config__
+  from scopesim_templates_deux.rc import __config__
   __config__["!random.seed"] = 42
   ```
 

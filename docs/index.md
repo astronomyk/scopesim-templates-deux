@@ -21,7 +21,9 @@ myst:
 :width: 600 px
 ```
 
-# ScopeSim Templates
+# ScopeSim Templates Deux
+
+*An interim fork of [ScopeSim_Templates](https://github.com/AstarVienna/ScopeSim_Templates), imported as `scopesim_templates_deux`.*
 
 Another tool from the [A\* Vienna software team](https://astarvienna.github.io/)
 
@@ -36,7 +38,7 @@ spectral information of the source. For more information see [here](./source_obj
 This package has been released on PyPi:
 
 ```bash
-pip install scopesim_templates
+pip install git+https://github.com/astronomyk/scopesim-templates-deux
 ```
 
 ## From basic to advanced helper functions
@@ -53,7 +55,7 @@ You can do this either by opening an issue on Github, or by emailing one of the 
 ## Contact
 
 If you find an issue with ScopeSim Templates, please let us know via the
-[Github issues page](https://github.com/AstarVienna/ScopeSim_Templates/issues)
+[Github issues page](https://github.com/astronomyk/scopesim-templates-deux/issues)
 
 ## Contents
 
@@ -85,8 +87,8 @@ conventions
    :recursive:
    :caption: Package Contents
 
-   scopesim_templates.stellar
-   scopesim_templates.extragalactic
-   scopesim_templates.calibration.calibration
-   scopesim_templates.misc.misc
+   scopesim_templates_deux.stellar
+   scopesim_templates_deux.extragalactic
+   scopesim_templates_deux.calibration.calibration
+   scopesim_templates_deux.misc.misc
 ```
